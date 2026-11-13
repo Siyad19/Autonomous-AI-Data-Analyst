@@ -66,6 +66,35 @@ def create_visualize_tools(df):
         return fig
 
     @tool
+    def create_countplot(column: str):
+        """Create a countplot for a categorical column to visualize the frequency of each category.
+        Use this tool when the user asks for:
+        - distribution of a categorical column
+        - frequency/count of categories
+        - number of observations in each category
+        - class distribution
+        - target variable distribution when the target is categorical
+
+        Examples:
+        - "Show me the distribution of Exited"
+        - "Show the class distribution of the target column"
+        - "How many customers exited vs stayed?"
+        - "Plot the frequency of each category in Gender"""
+
+        fig, ax = plt.subplots()
+
+        sns.countplot(
+            x=df[column],
+            ax=ax
+        )
+
+        ax.set_xlabel(column)
+        ax.set_ylabel("Count")
+        ax.set_title(f"Countplot of {column}")
+
+        return fig
+
+    @tool
     def create_boxplot(column: str):
         """Create a boxplot for a numerical column to visualize its distribution and outliers."""
 
@@ -99,5 +128,6 @@ def create_visualize_tools(df):
         create_boxplot,
         create_lineplot,
         create_scatterplot,
-        create_heatmap
+        create_countplot,
+        create_heatmap,
     ]

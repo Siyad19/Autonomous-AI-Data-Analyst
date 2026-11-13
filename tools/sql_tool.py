@@ -2,6 +2,7 @@ import re
 import pandas as pd
 
 from data.duckdb_manager import DuckDBManager
+from guardrails.tool_guardrails import validate_query
 
 class SQLTool:
     def __init__(self, df:pd.DataFrame):
@@ -16,7 +17,9 @@ class SQLTool:
     def execute(self, query: str) -> pd.DataFrame:
 
         query = self.clean_query(query)
-        self.validate_query(query)
+        print(f"SQL query: {query}")  # Debugging statement
+        validate_query(query)
+        
 
         return self.db.execute_query(query)
 
@@ -26,21 +29,21 @@ class SQLTool:
         query = query.replace("```", "") # Replace with "".
         return query.strip() # Return clean sql query.
 
-    @staticmethod
-    def validate_query(query: str):
-        forbidden = [
-            "INSERT",
-            "UPDATE",
-            "DELETE",
-            "DROP",
-            "ALTER",
-            "CREATE",
-            "TRUNCATE"
-        ]
+    # @staticmethod
+    # def validate_query(query: str):
+    #     forbidden = [
+    #         "INSERT",
+    #         "UPDATE",
+    #         "DELETE",
+    #         "DROP",
+    #         "ALTER",
+    #         "CREATE",
+    #         "TRUNCATE"
+    #     ]
 
-        upper_query = query.upper() # Covert the query to uppercase.
+    #     upper_query = query.upper() # Covert the query to uppercase.
 
-        # Raise an ValueError if the following forbidden keywords are found in the LLM generated query.
-        for keyword in forbidden:
-            if re.search(rf"\b{keyword}\b", upper_query):
-                raise ValueError(f"Unsafe SQL operation detected: {keyword}")
+    #     # Raise an ValueError if the following forbidden keywords are found in the LLM generated query.
+    #     for keyword in forbidden:
+    #         if re.search(rf"\b{keyword}\b", upper_query):
+    #             raise ValueError(f"Unsafe SQL operation detected: {keyword}")

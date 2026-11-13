@@ -9,3 +9,5 @@ venv/
 .pytest_cache/
 
 data_files/*
+
+automated_eda_report.html

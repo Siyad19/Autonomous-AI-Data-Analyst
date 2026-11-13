@@ -7,3 +7,5 @@ langchain
 langchain-openai
 python-dotenv
 langgraph
+langsmith
+ydata-profiling

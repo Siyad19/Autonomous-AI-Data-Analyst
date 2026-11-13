@@ -25,6 +25,7 @@ def sql_agent(state: AnalystState):
         state['df']
     ) 
 
+
     result = sql_tool.execute(
         sql_query
     )
