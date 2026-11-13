@@ -1,7 +1,8 @@
+streamlit
 pandas
+numpy
 matplotlib
 seaborn
-streamlit
 duckdb
 langchain
 langchain-openai
