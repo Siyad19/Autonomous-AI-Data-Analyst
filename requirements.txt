@@ -10,3 +10,4 @@ python-dotenv
 langgraph
 langsmith
 ydata-profiling==4.18.4
+setuptools<82
